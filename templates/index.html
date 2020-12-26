@@ -1,0 +1,51 @@
+{% extends "bootstrap/base.html" %}
+
+{% block title %}twi2wiki{% endblock %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+<head>
+    <title>twi2wiki</title>
+    <meta name="description" content="Twitterプロフィールをもとに、AIがあなたのWikipediaを生成します">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-THM1YGRLHT"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-THM1YGRLHT');
+    </script>
+</head>
+{% block content %}
+<div class="container">
+    <div class="text-center pt-3">
+        <div class="center-block">
+            <img src="{{ url_for('static', filename='img/Twi2Wiki_logo_l.png') }}" class="img-responsive center-block" />
+        </div>
+    </div>
+    <div class="text-center">
+        <p>Twitterプロフィールをもとに</p>
+        <p>AIがあなたのWikipediaページを生成します</p>
+    </div>
+
+    <div class="text-center h2">
+        <a role="button" class="btn" href="{{ url_for('wiki.wiki')}}" style="color: #ffffff; background-color: #616161; border-radius: 100vh; font-size:x-large;">
+            　　始める　　
+        </a>
+    </div>
+
+    <div class="text-center">
+        <p class="font-weight-bold">スマホ推奨</p>
+    </div>
+    <div class="text-center">
+        <p class="h3">
+            <u>
+                <a href="https://qiita.com/nakata_naka/items/664348cdd50415f47744" style="text-decoration: none">
+                解説はこちら
+                </a>
+            </u>
+        </p>
+    </div>
+</div>
+{% endblock %}

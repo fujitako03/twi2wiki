@@ -1,0 +1,115 @@
+{% extends "bootstrap/base.html" %}
+
+<!-- {% block title %}twi2wiki{% endblock %} -->
+
+<!-- CSS読み込み -->
+<head>
+    <!-- <meta charset="utf-8">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <meta charset="utf-8"> -->
+    <link href="../static/css/style.css" rel="stylesheet">
+    <title>Wikipedia from Twitter</title>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-THM1YGRLHT"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-THM1YGRLHT');
+    </script>
+</head>
+
+{% block content %}
+{% if user_info == False %}
+    <div class="container">
+        <div class="text-center pt-3">
+            <a class="btn btn-lg btn-info" href="{{ url_for('twitter.twitter_auth')}}" role="button">
+                Twiitter認証を行う
+            </a>
+        </div>
+        <div class="text-center">認証後、10秒待つとページが生成されます</div>
+    </div>
+{% else %}
+    <div class="container">
+        <div class="text-center">
+            <!-- 名前 -->
+            <div class="h1 text-left" style="font-family: serif;">{{ user_info.name }}</div>
+            <div class="text-left">日本の{{ user_info.job }}</div>
+            <hr>
+
+            <!-- 概要 -->
+            <p class="text-left">{{ user_info.name }}は日本の{{ user_info.job }}。{{ user_info.description }}</p>
+
+            <!-- 説明表 -->
+            <div style="background-color: #eeeeee;">
+                <table class="table">
+                    <thead class="">
+                        <tr>
+                            <th scope="col" colspan="2" class="text-center table-top" style="background-color:#222222;">
+                                <span style="color:#ffffFF;">{{ user_info.name }}</span>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td scope="col" colspan="2">
+                                <div style="width:140px" class="center-block">
+                                    <img src="{{ user_info.pic}}" class="img-responsive center-block">
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="col" colspan="2" class="text-center table-mid" style="background-color:#333333;">
+                                <span style="color:#ffffFF;">基本情報</span>
+                            </th>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: bold;">職業</td>
+                            <td>{{ user_info.job }}</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: bold;">Twitter開始日</td>
+                            <td>{{ user_info.create_at }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div>
+            <div class="h2 text-left" style="font-family: serif;">略歴</div>
+            <hr>
+            <p>{{ user_info.predict_text }}</p>
+            <p>{{ user_info.tweets }}</p>
+
+            <div class="h2" style="font-family: serif;">出典</div>
+            <hr>
+            <ol>
+                <li>
+                    <a href="https://twitter.com/{{ user_info.screen_name }}">{{ user_info.name }}のTwitter</a>
+                </li>
+                <li>
+                    <a href="https://qiita.com/nakata_naka/items/664348cdd50415f47744">本アプリの技術的背景（Qiita記事）</a>
+                </li>
+            </ol>
+        </div>
+
+        <div class="alert alert-info alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            略歴部分をAIが生成しています。詳しい説明は<a href="https://qiita.com/nakata_naka/items/664348cdd50415f47744">こちら</a>
+
+        </div>
+        <div class="alert alert-warning alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            シェアする場合はURLではなくスクショしていただき、 #twi2wiki をつけてツイートお願いします。※一度離れるとURLが無効になります
+        </div>
+
+        <div class="text-center">
+            <a class="btn btn-lg btn-info" href="{{ url_for('top')}}" role="button">
+                トップに戻る
+            </a>
+        </div>
+    </div>
+{% endif %}
+
+{% endblock %}

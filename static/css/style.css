@@ -1,0 +1,17 @@
+.table-top{
+    background-color: #B50000;
+}
+
+.tabble-mid{
+    background-color: #B50000;
+}
+
+
+.table th,
+.table td {
+  border:none;
+}
+
+a.btn {
+  border-radius: 100vh;
+}
